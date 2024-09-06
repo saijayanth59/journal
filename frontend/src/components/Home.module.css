@@ -63,3 +63,10 @@ section button {
   padding: 3px;
   opacity: 0.5;
 }
+
+#saveBtn {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  z-index: 12;
+}

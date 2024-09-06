@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage"
 
 import { Routes, Route } from "react-router-dom";
+import Entry from "./components/Entry";
 import EntryView from "./components/EntryView";
 
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<HomePage />}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/entry" element={<Entry />} />
         <Route path="/entry/:slug" element={<EntryView />} />
       </Routes>
 
@@ -25,12 +27,6 @@ function App() {
         color="140, 100, 255"
         outerAlpha={0.5}
       />
-
-      {/* <Login /> */}
-      {/* <Register /> */}
-      {/* <Entry /> */}
-      {/* <EntryView /> */}
-      {/* <Header /> */}
     </>
   );
 }

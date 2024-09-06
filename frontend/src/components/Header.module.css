@@ -1,0 +1,7 @@
+.headerContainer {
+  position: absolute;
+  left: 20rem;
+  right: 20rem;
+  top: 2rem;
+  z-index: 1;
+}

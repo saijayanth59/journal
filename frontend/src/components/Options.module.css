@@ -1,9 +1,29 @@
+#editBtn {
+  position: fixed;
+  top: 2.5em;
+  right: 2em;
+  z-index: 12;
+}
+.btn {
+  font-size: 1.5em;
+}
+
+#delBtn {
+  position: fixed;
+  top: 2.5em;
+  right: 6em;
+  z-index: 12;
+}
 #saveBtn {
   position: fixed;
   bottom: 2em;
   right: 2em;
   z-index: 12;
 }
-.btn {
-  font-size: 1.5em;
+
+#backBtn {
+  position: fixed;
+  top: 2.5em;
+  left: 2em;
+  z-index: 12;
 }

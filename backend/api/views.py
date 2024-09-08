@@ -1,9 +1,16 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer, EntrySerializer
+from django.contrib.auth.models import User
 from .models import Entry
 
 
+class ListUser(generics.ListAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated, ]
+    
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)   
 class CreateUser(generics.CreateAPIView):
     serializer_class = UserSerializer
 

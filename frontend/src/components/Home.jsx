@@ -3,8 +3,33 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.css";
 import Header from "./Header";
+import { useEffect, useState } from "react";
+import { getEntries } from "../utils/rest";
 
 export default function Home() {
+  const [entries, setEntries] = useState([]);
+  const [idx, setIdx] = useState(0);
+
+  function handleNext(){
+    setIdx((prev) => Math.min(prev + 3, entries.length - 1));
+  }
+
+  function handlePrev(){
+    setIdx((prev) => Math.max(prev - 3, 0));
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try{
+        const res = await getEntries(localStorage.getItem("token"));
+        setEntries(res.data);
+      }catch(e){
+        console.log(e.message)
+      }
+    }
+    fetchData();
+  });
+
   return (
     <>
       <Link to={"/entry"}>
@@ -17,40 +42,23 @@ export default function Home() {
       </Link>
       <Header />
       <div className={styles.entries}>
-        <Link to={"/entry/1"}>
-          <div>
-            <h2>Aug. 17, 2024, 4:09 p.m.</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum
-              reiciendis magnam nihil veniam. Quisquam possimus iusto asperiores
-              ex repellat ea debitis maiores enim ipsum illo, qui maxime et,
-              nihil eaque.
-            </p>
-          </div>
-        </Link>
-        <div>
-          <h2>Aug. 17, 2024, 4:09 p.m.</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum
-            reiciendis magnam nihil veniam. Quisquam possimus iusto asperiores
-            ex repellat ea debitis maiores enim ipsum illo, qui maxime et, nihil
-            eaque.
-          </p>
-        </div>{" "}
-        {/* <div>
-          <h2>Aug. 17, 2024, 4:09 p.m.</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum
-            reiciendis magnam nihil veniam. Quisquam possimus iusto asperiores
-            ex repellat ea debitis maiores enim ipsum illo, qui maxime et, nihil
-            eaque.
-          </p>
-        </div> */}
+      {entries.slice(idx, idx + 3).map((entry) => {
+          return (
+            <Link to={`entry/${entry.id}`} key={entry.id}>
+              <div>
+                <h2>{entry.created}</h2>
+                <p>{entry.body.slice(0, 250)}</p>
+              </div>
+            </Link>
+          );
+        })}
         <section>
-          <button>prev</button>
-          <button>next</button>
+          <button onClick={handlePrev}>prev</button>
+          <button onClick={handleNext}>next</button>
         </section>
       </div>
+
+
     </>
   );
 }
